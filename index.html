@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sự Thức Giấc Của Tiny - Chúc Mừng Ngày 20/10</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #ffd3eb 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Hiệu ứng hoa rơi */
+        .petal {
+            position: absolute;
+            background-color: #ffb7d5;
+            border-radius: 150% 0 150% 150%;
+            opacity: 0.8;
+            pointer-events: none;
+            animation: fade 10s infinite linear, drop 10s infinite linear;
+        }
+
+        @keyframes fade {
+            0%, 90% { opacity: 0.8; }
+            100% { opacity: 0; }
+        }
+
+        @keyframes drop {
+            0% { top: -10%; transform: translateX(0) rotate(0deg); }
+            100% { top: 110%; transform: translateX(100px) rotate(360deg); }
+        }
+
+        /* Khung nội dung chính */
+        .container {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(223, 110, 167, 0.3);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            backdrop-filter: blur(10px);
+            border: 2px solid #ffb7d5;
+            z-index: 10;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .decor-line {
+            color: #d63384;
+            font-size: 16px;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #d63384;
+            font-size: 28px;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        /* Hình ảnh minh họa (Hai cô gái áo dài) */
+        .image-box {
+            width: 100%;
+            height: 200px;
+            margin: 20px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 3px solid #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #fff0f5;
+        }
+
+        .image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .wishes {
+            font-size: 18px;
+            color: #4a4a4a;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff65a3, #d63384);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(214, 51, 132, 0.4);
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(214, 51, 132, 0.6);
+        }
+
+        /* Lời nhắn ẩn hiện */
+        .secret-message {
+            margin-top: 20px;
+            color: #b52269;
+            font-weight: bold;
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        /* Nút điều khiển nhạc nhỏ ở góc màn hình */
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid #ffb7d5;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ĐÃ CẬP NHẬT: Thẻ chứa nhạc nền trực tiếp bài hát nhẹ nhàng -->
+    <audio id="bg-music" loop>
+        <source src="https://archive.org" type="audio/mpeg">
+        Trình duyệt của bạn không hỗ trợ phát nhạc.
+    </audio>
+
+    <!-- Nút điều khiển nhạc nhanh -->
+    <button class="music-control" onclick="toggleMusic()">
+        <span id="music-icon">📁</span> <span id="music-status">Nhạc tắt</span>
+    </button>
+
+    <!-- Các cánh hoa rơi tự động -->
+    <div id="petals-container"></div>
+
+    <div class="container">
+        <div class="decor-line">❀ ✿ ❁ ❀ ✿ ❁ ❀ ✿ ❁ ❀ ✿ ❁</div>
+        
+        <h1>Sự thức giấc của Tiny</h1>
+        <p style="color: #888; font-size: 14px;">Chào mừng ngày Phụ nữ Việt Nam 20/10</p>
+
+        <div class="image-box">
+            <!-- ĐÃ CẬP NHẬT: Thêm link ảnh hai cô gái mặc áo dài thật -->
+            <img src="https://unsplash.com" alt="Hai cô gái áo dài">
+        </div>
+
+        <div class="wishes">
+            "Chúc cho Tiny và tất cả những người phụ nữ tuyệt vời xung quanh bạn luôn xinh đẹp, rạng rỡ như những bông hoa hướng dương đón nắng, luôn hạnh phúc và tràn ngập niềm vui trong cuộc sống!"
+        </div>
+
+        <button class="btn" onclick="handleSurprise()">Bấm vào đây để nhận điều bất ngờ 💖</button>
+        <div class="secret-message" id="secret-msg">
+            Chúc bạn một ngày 20/10 thật trọn vẹn và ý nghĩa! Luôn yêu thương chính mình nhé! ✨
+        </div>
+    </div>
+
+    <script>
+        var music = document.getElementById("bg-music");
+        var musicIcon = document.getElementById("music-icon");
+        var musicStatus = document.getElementById("music-status");
+
+        function handleSurprise() {
+            var msg = document.getElementById("secret-msg");
+            msg.style.display = "block";
+            if (music.paused) {
+                playMusic();
+            }
+        }
+
+        function playMusic() {
+            music.play().then(() => {
+                musicIcon.innerText = "🎵";
+                musicStatus.innerText = "Đang phát";
+            }).catch(error => {
+                console.log("Trình duyệt chặn phát nhạc tự động: ", error);
+            });
+        }
+
+        function toggleMusic() {
+            if (music.paused) {
+                playMusic();
+            } else {
+                music.pause();
+                musicIcon.innerText = "📁";
+                musicStatus.innerText = "Nhạc tắt";
+            }
+        }
+
+        const container = document.getElementById('petals-container');
+        const numPetals = 25;
+
+        for (let i = 0; i < numPetals; i++) {
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
+            
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.width = Math.random() * 15 + 10 + 'px';
+            petal.style.height = Math.random() * 15 + 10 + 'px';
+            petal.style.animationDelay = Math.random() * 8 + 's';
+            petal.style.animationDuration = Math.random() * 5 + 5 + 's';
+            
+            const colors = ['#ffb7d5', '#ff94b8', '#ffccd5', '#ffe5ec'];
+            petal.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+
+            container.appendChild(petal);
+        }
+    </script>
+</body>
+</html>
